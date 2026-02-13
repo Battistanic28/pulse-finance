@@ -7,7 +7,7 @@
 /*.dylib
 
 # SQLite DB
-/data/*.db
+*.db*
 
 # IDE/editor files
 .vscode/
