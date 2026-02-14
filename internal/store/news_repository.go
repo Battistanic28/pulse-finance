@@ -30,3 +30,28 @@ func (r *NewsRepository) Insert(n News) error {
 
 	return err
 }
+
+// FetchSince returns all news articles published after the given time string.
+// The timeFrom parameter should match the time_published format (e.g. "20060102T1504").
+func (r *NewsRepository) FetchSince(timeFrom string) ([]News, error) {
+	rows, err := r.db.Query(`
+		SELECT title, url, summary, time_published, sentiment_score
+		FROM news
+		WHERE time_published >= ?
+		ORDER BY time_published DESC
+	`, timeFrom)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var articles []News
+	for rows.Next() {
+		var n News
+		if err := rows.Scan(&n.Title, &n.URL, &n.Summary, &n.TimePublished, &n.Sentiment); err != nil {
+			return nil, err
+		}
+		articles = append(articles, n)
+	}
+	return articles, rows.Err()
+}
