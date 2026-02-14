@@ -41,8 +41,13 @@ func main() {
 
 	repo := store.NewNewsRepository(db)
 
+	apiKey := os.Getenv("ALPHAVANTAGE_API_KEY")
+	if apiKey == "" {
+		log.Fatal("ALPHAVANTAGE_API_KEY environment variable is required")
+	}
+
 	av := client.Client{
-		APIKey:     os.Getenv("ALPHAVANTAGE_API_KEY"),
+		APIKey:     apiKey,
 		HTTPClient: nil,
 	}
 
