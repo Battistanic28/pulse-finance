@@ -6,12 +6,15 @@ import (
 	"path/filepath"
 	"strconv"
 
+	"github.com/joho/godotenv"
 	"pulse/internal/client"
 	"pulse/internal/ingest"
 	"pulse/internal/store"
 )
 
 func main() {
+	_ = godotenv.Load()
+
 	if len(os.Args) < 3 {
 		log.Fatal("Usage: go run ./cmd/ingestor <TICKER> <LOOKBACK_HOURS>")
 	}
