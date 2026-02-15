@@ -24,16 +24,22 @@ Summarize ingested articles and generate sentiment analysis using Ollama:
 - Command: ```go run ./cmd/analyzer {lookback # hours}```
 - Example: ```go run ./cmd/analyzer 24```
 
+#### 3. Email Summary
+Send the most recent summary as an email:
+- Requires SMTP credentials (e.g. Gmail with an [App Password](https://support.google.com/accounts/answer/185833))
+- Command: ```go run ./cmd/mailer```
+
 #### Environment Variables
 | Variable | Description | Default |
 |---|---|---|
 | `ALPHAVANTAGE_API_KEY` | Alpha Vantage API key | (required) |
 | `OLLAMA_URL` | Ollama server URL | `http://localhost:11434` |
 | `OLLAMA_MODEL` | Ollama model to use | `llama3.1:8b` |
+| `SMTP_HOST` | SMTP server hostname | (required) |
+| `SMTP_PORT` | SMTP server port | (required) |
+| `SMTP_USER` | SMTP auth username | (required) |
+| `SMTP_PASSWORD` | SMTP auth password / app password | (required) |
+| `EMAIL_FROM` | Sender email address | (required) |
+| `EMAIL_TO` | Recipient email address | (required) |
 
-### TODO:
-- ✅ Fetch
-- ✅ Ingest
-- ✅ AI Summarization & Sentiment Analysis
-- 🚧 Newsletter generation
-- 🚧 Email pipeline
+
